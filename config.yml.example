@@ -23,19 +23,22 @@ jobs:
       - "count"
     query:  |
             select count(*) from mz_materialized_views;
-  - name: "replica_cpu_usage"
-    help: "Replica CPU usage"
+  - name: "source_errors_count"
+    help: "Source Errors Count"
     labels:
-      - "replica_name"
-      - "cluster_id"
+      - "source_name"
+      - "source_id"
     values:
-      - "cpu_percent_normalized"
+      - "error_count"
     query:  |
             SELECT
-              name::text as replica_name,
-              cluster_id::text as cluster_id,
-              cpu_percent_normalized::float as cpu_percent_normalized
-            FROM mz_cluster_replicas r join mz_internal.mz_cluster_replica_utilization u on r.id=u.replica_id;
+              mz_catalog.mz_sources.name AS source_name,
+              source_id AS source_id,
+              count(*) AS error_count
+            FROM mz_internal.mz_source_status_history h
+            JOIN mz_catalog.mz_sources ON h.source_id = mz_catalog.mz_sources.id
+            WHERE h.error IS NOT NULL
+            GROUP BY 1, 2;
   - name: "replica_memory_usage"
     help: "Replica memory usage"
     labels:
