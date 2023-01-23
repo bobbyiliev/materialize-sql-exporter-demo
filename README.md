@@ -96,15 +96,15 @@ The `queries` section contains all the queries that the SQL exporter will run to
 
 To configure the SQL exporter to export additional metrics, add a new entry to the `sql_exporter` section of the `config.yml` file. For example, to export the number of rows in the `orders` table, add the following:
 
-    ```yaml
-    sql_exporter:
-    - name: "total_orders"
-        help: "Total Orders"
-        values:
-        - "count"
-        query:  |
-                select count(*) from orders
-    ```
+```yaml
+sql_exporter:
+- name: "total_orders"
+    help: "Total Orders"
+    values:
+    - "count"
+    query:  |
+            select count(*) from orders
+```
 
 ## Helpful links
 
