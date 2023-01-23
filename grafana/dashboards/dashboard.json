@@ -22,7 +22,6 @@
   "fiscalYearStartMonth": 0,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -341,13 +340,13 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sql_replica_cpu_usage{}",
+          "expr": "sql_source_errors_count{}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Materialize Cluster CPU %",
+      "title": "Source Error Count",
       "type": "timeseries"
     },
     {
